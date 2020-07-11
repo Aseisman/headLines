@@ -133,8 +133,8 @@ class HomePage extends React.Component {
     }
     componentDidMount() {
         axios({
-            // url: 'https://i.snssdk.com/search/api/study',
-            url:"/apis/search/api/study",
+            url: 'https://i.snssdk.com/search/api/study',
+            // url:"/apis/search/api/study",
             method: 'get',
             // headers:{
             //     'Access-Control-Allow-Origin':"*",
@@ -218,8 +218,8 @@ class HomePage extends React.Component {
     getKeyWords = () => {
         if (this.state.searchword.length !== 0) {
             axios({
-                // url: 'https://i.snssdk.com/search/api/sug',
-                url:'/apis/search/api/sug',
+                url: 'https://i.snssdk.com/search/api/sug',
+                // url:'/apis/search/api/sug',
                 method: 'get',
                 params: {
                     'keyword': this.state.searchword,
@@ -259,8 +259,8 @@ class HomePage extends React.Component {
     findSearch = () => {
         console.log(this.state.searchword)
         axios({
-            // url: 'https://i.snssdk.com/search/api/study',
-            url:'/apis/search/api/study',
+            url: 'https://i.snssdk.com/search/api/study',
+            // url:'/apis/search/api/study',
             method: 'get',
             // headers:{
             //     'Access-Control-Allow-Origin':"*",
