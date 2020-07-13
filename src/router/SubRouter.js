@@ -11,9 +11,9 @@ import NotFound from '../pages/NotFound/index'
 function SubRouter() {
     return (
         <Switch>
-            <Route exact path="/" component={HomePage}></Route>
+            <Route exact path="/" component={Cinema}></Route>
             <Route path="/Video" component={Video}></Route>
-            <Route path="/Cinema" component={Cinema}></Route>
+            <Route path="/Cinema" component={HomePage}></Route>
             <Route path="/MyMessage" component={Mymessage}></Route>
             <Route path="*" component={NotFound}></Route>
         </Switch>

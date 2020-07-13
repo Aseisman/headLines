@@ -3,7 +3,7 @@ import '../../pages/HomePage/HomePage.css';
 import axios from 'axios'
 import Swiper from 'swiper/dist/js/swiper.js'
 import 'swiper/dist/css/swiper.min.css'
-import '../SearchDetail/loading.css'
+import './loading.css'
 export default class Search extends React.Component {
     searchArr = [];
     constructor() {
@@ -23,7 +23,7 @@ export default class Search extends React.Component {
         })
         console.log("关键字：" + this.props.searchword + "到子组件的mount")
         this.setState({
-            searchword: this.props.searchword
+            searchword:this.props.searchword
         })
         axios({
             url: 'https://i.snssdk.com/search/api/study',
@@ -65,6 +65,10 @@ export default class Search extends React.Component {
             // loop:true,
             onSlideNextStart: function () {
                 console.log("请求下一页数据")
+                that.setState({
+                    // searchArr:[],
+                    isLoading: true
+                })
                 axios({
                     url: 'https://i.snssdk.com/search/api/study',
                     // url:"/apis/search/api/study",
@@ -94,10 +98,18 @@ export default class Search extends React.Component {
                             total: 0,
                         })
                     }
+                    setTimeout(() => {
+                        that.setState({
+                            isLoading: false
+                        })
+                    }, 1000)
                 })
             },
             onSlidePrevStart: function () {
                 console.log("请求上一页数据")
+                that.setState({
+                    isLoading: true
+                })
                 axios({
                     url: 'https://i.snssdk.com/search/api/study',
                     // url:"/apis/search/api/study",
@@ -127,6 +139,11 @@ export default class Search extends React.Component {
                             total: 0,
                         })
                     }
+                    setTimeout(() => {
+                        that.setState({
+                            isLoading: false
+                        })
+                    }, 1000)
                 })
             }
         })
@@ -155,14 +172,14 @@ export default class Search extends React.Component {
             )
         })
         // 设置总分页数
-        // let elsePages = [];
-        // for (let i = 1; i <= parseInt(this.state.total / 10); i++) {
-        //     elsePages.push(
-        //         <div style={{'marginTop': '55px' }} className='swiper-slide' key={i}>
-        //             {searchArr}
-        //         </div>
-        //     )
-        // }
+        let elsePages = [];
+        for (let i = 1; i <= parseInt(this.state.total / 10); i++) {
+            elsePages.push(
+                <div style={{'marginTop': '55px' }} className='swiper-slide' key={i}>
+                    {searchArr}
+                </div>
+            )
+        }
         return (
             <div>
                 <div className="swiper-container" style={{ display: this.state.isLoading === false ? 'block' : 'none' }}>
@@ -171,21 +188,22 @@ export default class Search extends React.Component {
                             {searchArr}
                         </div>
                         {/* 加载中的显示效果 */}
-                        <div className='swiper-slide' style={{ 'marginTop': '55px' }}>
-                            <div className='base'>
-                                <div className='cube'></div>
-                                <div className='cube'></div>
-                                <div className='cube'></div>
-                                <div className='cube'></div>
-                                <div className='cube'></div>
-                                <div className='cube'></div>
-                                <div className='cube'></div>
-                                <div className='cube'></div>
-                                <div className='cube'></div>
-                            </div>
-                            <div className="loadingWord">欢迎来到字节跳动训练营</div>
-                        </div>
+                        {elsePages}
                     </div>
+                </div>
+                <div style={{ display: this.state.isLoading === true ? 'block' : 'none', 'marginTop': '55px' }}>
+                    <div className='base'>
+                        <div className='cube'></div>
+                        <div className='cube'></div>
+                        <div className='cube'></div>
+                        <div className='cube'></div>
+                        <div className='cube'></div>
+                        <div className='cube'></div>
+                        <div className='cube'></div>
+                        <div className='cube'></div>
+                        <div className='cube'></div>
+                    </div>
+                    <div className="loadingWord">欢迎来到字节跳动训练营</div>
                 </div>
             </div>
 
